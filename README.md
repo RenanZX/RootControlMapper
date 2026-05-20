@@ -13,7 +13,7 @@ Joystick mapper for Linux developed in Rust. It allows mapping custom keys and s
 # 🎮 Use only your Joystick without a mouse and without a keyboard ✨
 
 <p align="center">
-  <video controls muted width="300" src="assets/DemoApp.mp4"></video>
+<video controls muted src="https://github.com/user-attachments/assets/106b42c0-d611-489c-bdbb-9c703cccbb58" with="250px" height="250px"></video>
 </p>
 
 ## Project goals (current and future)
