@@ -66,7 +66,7 @@ Não é necessário configurar nenhum comando, todos são pré-configurados na i
 
 
 
-- Para alterar os botoes, macros e scripts, consulte o [helper]("readme/helper.pt.md") 
+- Para alterar os botoes, macros e scripts, consulte o [helper](readme/helper.pt.md) 
 - Caso queira rodar em background sem o terminal, digite `root-ctrl-mapper -b` e caso queira fechar o app em background digite `root-ctrl-mapper -k`, todos os comandos estão disponíveis no [helper]("readme/helper.pt.md#comandos") deste repositório
 
 
