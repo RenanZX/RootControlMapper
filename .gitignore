@@ -1,6 +1,28 @@
+# Pastas desnecessarias
 temp/
 build/
 target/
 edit-img/
 environment/debug/
 TODO.md
+
+# Logs de erro gerados pelo Cargo
+Cargo.lock.gocryptfs
+*.rs.bk
+
+# Arquivos temporários e de cache do Cargo (gerados por ferramentas de CI ou plugins)
+.cargo/config.toml
+.cargo/credentials.toml
+
+# Logs do ambiente de execução e dumps de memória
+*.log
+crash.dump
+
+# Configurações específicas de IDEs populares (opcional, mas recomendado)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
