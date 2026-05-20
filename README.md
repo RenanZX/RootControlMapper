@@ -1,6 +1,6 @@
-<div style="text-align: center;">
+<p align="center">
     <img src="assets/terminalroot-logo2.png" width="220"/>
-</div>
+</p>
 
 # Root Control Mapper
 
@@ -12,7 +12,7 @@ Joystick mapper for Linux developed in Rust. It allows mapping custom keys and s
 
 # 🎮 Use only your Joystick without a mouse and without a keyboard ✨
 
-<p style="text-align: center;">
+<p align="center">
   <video controls muted width="300" src="assets/DemoApp.mp4"></video>
 </p>
 
