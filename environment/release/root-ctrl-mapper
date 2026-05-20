@@ -1,0 +1,10 @@
+#!/bin/bash
+CMAP_PATH="$HOME/.local/share/root-cmap"
+
+if [ "$1" = "-s" ]; then
+  echo "$CMAP_PATH/scripts"
+elif [ "$1" = "-j" ]; then
+  echo "$CMAP_PATH/json"
+else
+  env -C "$CMAP_PATH" ./root_ctrl_mapper "$@"
+fi

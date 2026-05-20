@@ -1,0 +1,27 @@
+
+[
+  {
+    "buttons": ["BTN_HOME", "BTN_RTHUMB"],
+    "change_mode": true
+  },
+  {
+    "buttons": ["BTN_SELECT", "DPAD_UP"],
+    "exec": "pp-browser"
+  },
+  {
+    "buttons": ["BTN_HOME", "BTN_LTHUMB"],
+    "py_exec": "record_obs.py"
+  },
+  {
+    "buttons": ["BTN_SELECT", "DPAD_LEFT"],
+    "exec": "pp-browser browser"
+  },
+  {
+    "buttons": ["BTN_SELECT", "DPAD_RIGHT"],
+    "exec": "pp-browser mute_emu"
+  },
+  {
+    "buttons": ["BTN_MODE", "BTN_SELECT"],
+    "macro_keys": ["KEY_LEFTALT", "KEY_F4"]
+  }
+]

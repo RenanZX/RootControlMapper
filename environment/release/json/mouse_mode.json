@@ -1,0 +1,59 @@
+
+[
+  {
+    "buttons": ["BTN_RTHUMB"],
+    "change_mode": true
+  },
+  {
+    "buttons": ["BTN_LTHUMB"],
+    "macro_keys": ["KEY_LEFTALT", "KEY_F4"] 
+  },
+  {
+    "buttons": ["LEFT_STICK"],
+    "mouse_move": true
+  },
+  {
+    "buttons": ["BTN_SELECT"],
+    "virtual_keyboard": true
+  },
+  {
+    "buttons": ["BTN_A"],
+    "macro_keys": ["MOUSE_LEFTCLICK"]
+  },
+  {
+    "buttons": ["BTN_B"],
+    "macro_keys": ["MOUSE_RIGHTCLICK"]
+  },
+  {
+    "buttons": ["BTN_X"],
+    "macro_keys": ["BACKSPACE"]
+  },
+  {
+    "buttons": ["BTN_Y"],
+    "clipboard_buffer": true
+  },
+  {
+    "buttons": ["BTN_LT"],
+    "macro_keys": ["CTRL", "KEY_A"]
+  },
+  {
+    "buttons": ["BTN_START"],
+    "macro_keys": ["ENTER"]
+  },
+  {
+    "buttons": ["BTN_RB"],
+    "macro_keys": ["ARROW_RIGHT"]
+  },
+  {
+    "buttons": ["BTN_LB"],
+    "macro_keys": ["ARROW_LEFT"]
+  },
+  {
+    "buttons": ["DPAD_UP"],
+    "macro_keys": ["SCROLL_UP"]
+  },
+  {
+    "buttons": ["DPAD_DOWN"],
+    "macro_keys": ["SCROLL_DOWN"]
+  }
+]

@@ -1,0 +1,59 @@
+#!/bin/bash
+APP_LIST="yuzu, DuckStation, PCSX2, RPCS3, Dolphin Emulator"
+
+toggle_play_browser() {
+  stats=$(playerctl --player=brave status)
+  if [[ "$stats" != "Stopped" ]]; then
+    playerctl play-pause -p brave
+  fi
+}
+
+toggle_app_mute() {
+  # O ID é extraído usando AWK, que armazena a última "Entrada do destino" vista
+  ID=$(pactl list sink-inputs | awk -v app_list="$1" '
+        BEGIN {
+            # Converte a string de nomes de app em um array (separado por espaço)
+            num_apps = split(app_list, apps, ", ");
+        }
+        
+        # 1. Armazena o ID ao encontrar o início de um bloco (em Português)
+        /^Entrada do destino #/ {
+            # $4 é o campo onde está o ID (#21)
+            gsub(/#/, "", $4); # Remove o caractere '#'
+            current_id = $4;
+        }
+
+        # 2. Quando encontra o nome do aplicativo no mesmo bloco...
+        /application.name =/ {
+            # Extrai o nome do aplicativo atual (ex: "Brave")
+            app_found = $3;
+            gsub(/"/, "", app_found); # Remove as aspas do nome
+            
+            # 3. Verifica se o nome encontrado está na nossa lista (app_list)
+            for (i = 1; i <= num_apps; i++) {
+                if (app_found == apps[i]) {
+                    print current_id; # Imprime o ID armazenado
+                    exit 0;         # Sai, pois já encontramos
+                }
+            }
+        }
+    ')
+
+  # Executa o mute se um ID foi encontrado
+  if [ -n "$ID" ]; then
+      # Esta linha de debug é útil para ver qual ID está sendo usado
+      echo "ID da Entrada de Áudio: ${ID}"
+      pactl set-sink-input-mute "$ID" toggle
+  else
+    echo "Erro: Não foi possível encontrar nenhum ID de áudio para o(s) aplicativo(s): $1. Verifique se algum está aberto."
+  fi
+}
+
+if [[ "$1" == "browser" ]]; then
+  toggle_play_browser
+elif [[ "$1" == "mute_emu" ]]; then
+  toggle_app_mute "$APP_LIST"
+else
+  toggle_play_browser
+  toggle_app_mute "$APP_LIST"
+fi
