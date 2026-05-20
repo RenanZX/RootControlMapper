@@ -13,7 +13,7 @@ Mapeador de joysticks para Linux desenvolvido em Rust. Permite o mapeamento de t
 # 🎮 Use apenas seu Joystick sem mouse e sem teclado ✨
 
 <p align="center">
-  <video controls muted width="300" src="assets/DemoApp.mp4"></video>
+<video controls muted src="https://github.com/user-attachments/assets/106b42c0-d611-489c-bdbb-9c703cccbb58" with="250px" height="250px"></video>
 </p>
 
 ## Objetivos do projeto (atual e futuro)
