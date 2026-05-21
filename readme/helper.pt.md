@@ -193,14 +193,14 @@ cd $(root-ctrl-mapper -j)
 
 # Como utilizar o teclado virtual
 
-<div style="text-align: center;">
+<p align="center">
     <img src="../assets/vk-template.png" width="600"/>
-</div>
+</p>
 
 O teclado virtual do root ctrl mapper é um teclado criado para facilitar o uso do controle (joystick) ao digitar um texto ou usar um comando no Linux, a seguir está a legenda do que cada botão faz:
 
-<div style="text-align: center;">
+<p align="center">
     <img src="../assets/virtual-keyboard.png" width="850"/>
-</div>
+</p>
 
 

@@ -194,12 +194,12 @@ cd $(root-ctrl-mapper -j)
 
 # How to use the virtual keyboard
 
-<div style="text-align: center;">
+<p align="center">
     <img src="../assets/vk-template.png" width="600"/>
-</div>
+</p>
 
 The root ctrl mapper virtual keyboard is a keyboard designed to facilitate controller (joystick) use when typing text or using a command in Linux. Below is the legend explaining what each button does:
 
-<div style="text-align: center;">
+<p align="center">
     <img src="../assets/virtual-keyboard.png" width="850"/>
-</div>
+</p>
