@@ -10,7 +10,7 @@ Joystick mapper for Linux developed in Rust. It allows mapping custom keys and s
 <a href="#usage">Usage</a> - <a href="#installation">Installation</a> - <a href="readme/helper.md#customizing-commands">Commands</a> - <a href="readme/helper.md#custom-scripts">Scripts</a> - <a href="dev/guide.md">Development</a>
 </p>
 
-## 🎮 Use only your Joystick without a mouse and without a keyboard ✨
+## 🎮 Full control with your joystick — no mouse or keyboard required. ✨
 
 <p align="center">
 <video controls muted src="https://github.com/user-attachments/assets/106b42c0-d611-489c-bdbb-9c703cccbb58" with="250px" height="250px"></video>
@@ -64,19 +64,17 @@ It is not necessary to configure any command, all of them are pre-configured dur
 
 ## Game Mode
 
-<div style="text-align: center;">
+<p align="center">
     <img src="assets/game-mode.png" width="450"/>
-</div>
+</p>
 
 > In this operation mode, all of them are button combos so they do not affect your gaming experience.
 
 ## Mouse Mode
 
-<div style="text-align: center;">
+<p align="center">
     <img src="assets/mouse-mode.png" width="850"/>
-</div>
-
-
+</p>
 
 - To change buttons, macros, and scripts, consult the [helper](readme/helper.md) 
 - If you want to run it in the background without the terminal, type `root-ctrl-mapper -b` and if you want to close the app in the background type `root-ctrl-mapper -k`. All commands are available in the [helper]("readme/helper.md#commands") of this repository.
