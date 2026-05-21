@@ -8,7 +8,7 @@ use crate::version::print_version;
 // use std::fs;
 
 // const LOCAL_HELPER: &str = include_str!("../helper.md");
-const LINK_HELPER: &str = "http://github.com/RenanZX/rootctrlmapper/helper.md";
+const LINK_HELPER: &str = "https://github.com/RenanZX/RootControlMapper/blob/main/readme/helper.md";
 
 pub fn open_helper() {
     open_web();
