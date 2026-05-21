@@ -16,6 +16,18 @@ Joystick mapper for Linux developed in Rust. It allows mapping custom keys and s
 <video controls muted src="https://github.com/user-attachments/assets/106b42c0-d611-489c-bdbb-9c703cccbb58" with="250px" height="250px"></video>
 </p>
 
+## Need a shortcut ⌨️? Use your controller!
+
+<p align="center">
+<video controls muted src="https://github.com/user-attachments/assets/7f76db0b-53b3-4c63-995a-841464868110" width="250px"></video>
+</p>
+
+## Transform your Linux machine into a console-like experience 🕹️
+
+<p align="center">
+<video controls muted src="https://github.com/user-attachments/assets/66f6826c-a727-414f-ac35-0a1272a3f8a9" width="250px"></video>
+</p>
+
 ## Project goals (current and future)
 - Create a flexible and customized experience for using the controller on Linux with all its features, *without limitations*.
 - Fix potential bugs and add more keys as needed and as the project evolves.
