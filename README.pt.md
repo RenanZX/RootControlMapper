@@ -10,11 +10,15 @@ Mapeador de joysticks para Linux desenvolvido em Rust. Permite o mapeamento de t
 <a href="#uso">Uso</a> - <a href="#installation">Instalação</a> - <a href="readme/helper.pt.md#personalizando-comandos">Comandos</a> - <a href="readme/helper.pt.md#scripts-personalizados">Scripts</a> - <a href="dev/guide.pt.md">Desenvolvimento</a>
 </p>
 
-# 🎮 Use apenas seu Joystick sem mouse e sem teclado ✨
+## 🎮 Use apenas seu Joystick sem mouse e sem teclado ✨
 
 <p align="center">
 <video controls muted src="https://github.com/user-attachments/assets/106b42c0-d611-489c-bdbb-9c703cccbb58" with="250px" height="250px"></video>
 </p>
+
+## Precisa usar um atalho ⌨️? Use no seu controle
+
+## Transforme sua máquina Linux em uma experiência console-like 🕹️
 
 ## Objetivos do projeto (atual e futuro)
 - Criar uma experiência flexível e personalizada para uso do controle no Linux com todas as suas funcionalides, *sem limitações*.
