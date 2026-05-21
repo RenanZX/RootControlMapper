@@ -11,6 +11,15 @@ pub fn is_macro_key(key: &str) -> bool {
     }
 }
 
+pub fn is_function_key(key: &str) -> bool {
+    match key {
+        "F1" | "F2" | "F3" | "F4" | "F5" | "F6" | "F7" | "F8" | "F9" | "F10" | "F11" | "F12" => {
+            true
+        }
+        _ => false,
+    }
+}
+
 pub fn get_keyboard_layout(kb_layout: KeyboardLayout) -> Vec<Vec<(&'static str, f32)>> {
     let rt_cmds = vec![
         ("Change", 2.0),

@@ -141,7 +141,7 @@ pub fn read_input_controller(
                                     "{}",
                                     format!("Run macro clipboard: {:?}", macro_data).purple()
                                 );
-                                processor::exec_macro(&macro_data, &mut device);
+                                key_pressed = processor::exec_macro(&macro_data, &mut device);
                                 button_control.combo_release();
                                 thread::sleep(Duration::from_millis(20));
                             } else {

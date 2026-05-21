@@ -3,12 +3,23 @@ use colored::*;
 use evdev::Key;
 use indexmap::IndexSet;
 
-use crate::conversor::string_to_key;
+use crate::{
+    conversor::string_to_key,
+    interpreter::vk::vk_kb_layout::{is_function_key, is_macro_key},
+};
 
 #[derive(Clone, Debug)]
 pub struct VKClipboard {
     cmds_pressed: IndexSet<String>,
     count_mkeys: i32,
+}
+
+fn get_key(key: &str) -> String {
+    if is_function_key(key) {
+        return format!("KEY_{}", key);
+    } else {
+        return key.to_string();
+    }
 }
 
 impl VKClipboard {
@@ -32,16 +43,18 @@ impl VKClipboard {
     pub fn add_cmd(&mut self, key: &str) {
         if !self.cmds_pressed.contains(key) {
             match key {
-                "Ctrl" | "Alt" => self.add_count(),
+                key if is_macro_key(key) => self.add_count(),
                 _ => (),
             }
-            self.cmds_pressed.insert(key.to_string());
+            let key_value = get_key(key);
+            self.cmds_pressed.insert(key_value);
         } else {
             match key {
-                "Ctrl" | "Alt" => self.sub_count(),
+                key if is_macro_key(key) => self.sub_count(),
                 _ => (),
             }
-            self.cmds_pressed.shift_remove(&key.to_string());
+            let key_value = get_key(key);
+            self.cmds_pressed.shift_remove(&key_value);
             if self.count_mkeys == 0 {
                 self.clear();
             }
@@ -53,7 +66,8 @@ impl VKClipboard {
     }
 
     pub fn has_key(&mut self, key: &str) -> bool {
-        self.cmds_pressed.contains(key)
+        let key_value = get_key(key);
+        self.cmds_pressed.contains(&key_value)
     }
 
     pub fn is_macro_active(&mut self) -> bool {
