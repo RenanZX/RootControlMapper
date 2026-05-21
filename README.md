@@ -77,7 +77,7 @@ It is not necessary to configure any command, all of them are pre-configured dur
 </p>
 
 - To change buttons, macros, and scripts, consult the [helper](readme/helper.md) 
-- If you want to run it in the background without the terminal, type `root-ctrl-mapper -b` and if you want to close the app in the background type `root-ctrl-mapper -k`. All commands are available in the [helper]("readme/helper.md#commands") of this repository.
+- If you want to run it in the background without the terminal, type `root-ctrl-mapper -b` and if you want to close the app in the background type `root-ctrl-mapper -k`. All commands are available in the [helper](readme/helper.md#commands) of this repository.
 
 
 <p align="center">
