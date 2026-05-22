@@ -4,14 +4,14 @@ import time
 import os
 from pathlib import Path
 
-home = Path.home()
+dir_atual = Path(__file__).resolve().parent
 
 PORTA = 4455
 HOST = 'localhost'
 CMD_ABRIR_OBS = ["flatpak", "run", "com.obsproject.Studio"]
 
 # Caminhos para sons do sistema Linux (comuns no Ubuntu/Fedora/Mint)
-SOUND_SFX = str(home / "gui-console-utils" / "sfx" / "notify_sound.mp3")
+SOUND_SFX = str(dir_atual / "sfx" / "notify_sound.mp3")
 
 def tocar_som(arquivo):
     """Toca um efeito sonoro usando o player nativo do sistema."""

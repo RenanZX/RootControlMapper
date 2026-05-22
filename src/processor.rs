@@ -25,11 +25,35 @@ fn get_local_script(script_name: &str) -> PathBuf {
     script_path
 }
 
+fn get_params(script_raw: &str) -> (&str, Vec<&str>) {
+    let mut parts = script_raw.split_whitespace();
+    let cmd_part = parts.next().unwrap_or("");
+    (cmd_part, parts.collect())
+}
+
 fn has_path(script_path: &str) -> bool {
     Path::new(script_path).exists()
 }
 
-pub fn run_py(py_file: &str) {
+fn print_args(args: &Vec<&str>, type_script: &str) {
+    if args.len() > 0 {
+        let all_args = args.join(" ");
+        if type_script == "bash" {
+            println!(
+                "{}",
+                format!("With args: {}", all_args).truecolor(255, 100, 255)
+            );
+        } else {
+            println!(
+                "{}",
+                format!("With args: {}", all_args).truecolor(180, 140, 0)
+            );
+        }
+    }
+}
+
+pub fn run_py(py_raw: &str) {
+    let (py_file, args) = get_params(py_raw);
     let script: PathBuf = if has_path(py_file) {
         PathBuf::from(py_file)
     } else {
@@ -41,8 +65,11 @@ pub fn run_py(py_file: &str) {
         format!("Run script Python {}", script.display()).yellow()
     );
 
+    print_args(&args, "py");
+
     let mut child = Command::new("python")
         .arg(script)
+        .args(&args)
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
         .spawn()
@@ -68,11 +95,13 @@ pub fn run_py(py_file: &str) {
     }
 }
 
-pub fn run_cmd(exec: &String) {
-    let script: PathBuf = if has_path(exec) {
-        PathBuf::from(exec)
+pub fn run_cmd(exec_raw: &String) {
+    let (script_exec, args) = get_params(exec_raw);
+    println!("script_path: {} ", script_exec);
+    let script: PathBuf = if has_path(script_exec) {
+        PathBuf::from(script_exec)
     } else {
-        get_local_script(exec)
+        get_local_script(script_exec)
     };
 
     println!(
@@ -80,7 +109,10 @@ pub fn run_cmd(exec: &String) {
         format!("Run command/script: {}", script.display()).bright_magenta()
     );
 
+    print_args(&args, "bash");
+
     let mut child = Command::new(script)
+        .args(&args)
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
         .spawn()
