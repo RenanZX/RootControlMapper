@@ -20,6 +20,7 @@ pub fn open_cmds() {
         "-v - Print Version".cyan(),
         "-b - Run app in background".yellow(),
         "-k - Kill instance of app running in background".red(),
+        "-py - Show Python Env location of Root control mapper".yellow(),
         "-j - Show JSON maps folder location".orange(),
         "-s - Show Scripts folder location".orange(),
         "-h - Open Helper of settings and maps".blue(),

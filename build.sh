@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SOURCE_BUILD="environment/release"
+GEN_ENV_PY="$SOURCE_BUILD/rcm_env/generate_env.sh"
 SOURCE_DEBUG="environment/debug"
 
 tar_name() {
@@ -18,6 +19,7 @@ if [[ $1 == "--release" ]]; then
   cargo build --release
   mv ./target/release/root_ctrl_mapper ./build/root-cmap/
   cp -r "$SOURCE_BUILD/data/." ./build/root-cmap/
+  cp -r "$SOURCE_BUILD/rcm_env" ./build/rcm_env
   cp "$SOURCE_BUILD/install.sh" "$SOURCE_BUILD/root-ctrl-mapper" ./build/
   if [[ $2 == "tar" ]]; then
     tar_build 
@@ -30,6 +32,8 @@ elif [[ $1 == "--debug" ]]; then
   if [ ! -d "$SOURCE_DEBUG" ]; then
     mkdir -p "$SOURCE_DEBUG"
     cp -r "$SOURCE_BUILD/data/." "$SOURCE_DEBUG/"
+    chmod +x "$GEN_ENV_PY"
+    "$GEN_ENV_PY" "$SOURCE_DEBUG" "$SOURCE_BUILD/rcm_env"
   fi
 elif [[ $1 == "--clear" ]]; then
   TAR_NAME=$(tar_name)
