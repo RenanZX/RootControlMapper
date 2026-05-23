@@ -24,12 +24,27 @@ impl ButtonCombo {
         }
     }
 
+    fn check_record_long_press(&mut self, new_btn: &InputController) -> bool {
+        *new_btn == InputController::RecordBtn(StatusButton::LongPress)
+            && (self.button_pressed[0] == InputController::RecordBtn(StatusButton::Press)
+                || self.button_pressed[0] == InputController::RecordBtn(StatusButton::LongPress))
+    }
+
+    fn is_record_long_press(&mut self, button: &InputController) -> bool {
+        *button == InputController::RecordBtn(StatusButton::Press)
+            && self.button_pressed[0] == InputController::RecordBtn(StatusButton::LongPress)
+    }
+
     pub fn add_button(&mut self, btn: InputController) {
         self.last_input_time = Instant::now();
         if self.button_pressed.len() >= MAX_COMBO_LENGTH {
             self.button_pressed.pop_front();
         }
+        if self.check_record_long_press(&btn) {
+            self.button_pressed.pop_front();
+        }
         self.button_pressed.push_back(btn);
+        // println!("Buttons: {:?}", self.button_pressed);
     }
     /*
         pub fn pop_button(&mut self, btn: InputController) {
@@ -86,7 +101,7 @@ impl ButtonCombo {
                         return Some(data);
                     }
                 }
-            } else if botoes[0] == self.button_pressed[0] {
+            } else if botoes[0] == self.button_pressed[0] || self.is_record_long_press(&botoes[0]) {
                 match click_type {
                     ClickType::DoubleClick => {
                         if self.button_pressed.len() > 1

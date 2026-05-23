@@ -1,5 +1,5 @@
+use evdev::{Device, InputEventKind, Key};
 use std::time::{Duration, Instant};
-use evdev::{Device,InputEventKind, Key};
 
 //const COMBO_TIMEOUT: Duration = Duration::from_millis(500);
 const KEYBOARD_XBOX: &str = "2.4G XBOX 360 For Windows Keyboard";
@@ -17,14 +17,12 @@ pub struct KeyboardXbxController {
     device: Device,
     record_button: StatusButton,
     counter: i32,
-    last_input_time: Instant
+    last_input_time: Instant,
 }
 
-pub fn check_device()->bool {
+pub fn check_device() -> bool {
     let mut devices = evdev::enumerate();
-    let option = devices.find(|(_, dev)| {
-        dev.name() == Some(&KEYBOARD_XBOX)
-    });
+    let option = devices.find(|(_, dev)| dev.name() == Some(&KEYBOARD_XBOX));
     if let Some(_) = option {
         return true;
     }
@@ -32,21 +30,19 @@ pub fn check_device()->bool {
 }
 
 impl KeyboardXbxController {
-    pub fn create()->Result<Self, String> {
+    pub fn create() -> Result<Self, String> {
         let mut devices = evdev::enumerate();
-        let option = devices.find(|(_, dev)| {
-            dev.name() == Some(&KEYBOARD_XBOX)
-        });
+        let option = devices.find(|(_, dev)| dev.name() == Some(&KEYBOARD_XBOX));
         if let Some((_path, device)) = option {
-            Ok(Self { 
+            Ok(Self {
                 device: device,
                 counter: 0,
                 record_button: StatusButton::Realese,
-                last_input_time: Instant::now() 
+                last_input_time: Instant::now(),
             })
         } else {
             Err(format!("Dispositivo não possui suporte a gravacao!"))
-        } 
+        }
     }
 
     pub fn update_input(&mut self) {
@@ -54,7 +50,6 @@ impl KeyboardXbxController {
             for event in events {
                 //println!("events monitor {:?}", event);
                 if let InputEventKind::Key(key) = event.kind() {
-
                     match key {
                         Key::KEY_SYSRQ => {
                             self.record_button = match event.value() {
@@ -64,10 +59,10 @@ impl KeyboardXbxController {
                                         self.counter = 0;
                                         StatusButton::DoubleClick
                                     } else {
-                                        self.counter+=1;
+                                        self.counter += 1;
                                         StatusButton::Press
                                     }
-                                },
+                                }
                                 2 => {
                                     let duration = Instant::now() - self.last_input_time;
                                     if duration < LONG_TIMEIN {
@@ -75,13 +70,12 @@ impl KeyboardXbxController {
                                     } else {
                                         StatusButton::LongPress
                                     }
-                                },
+                                }
                                 _ => self.record_button,
                             };
                         }
                         _ => {}
                     }
-
                 }
                 self.last_input_time = Instant::now();
             }

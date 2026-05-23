@@ -26,7 +26,7 @@ def toggle_obs():
     if not esta_rodando():
         print("Abrindo OBS...")
         subprocess.Popen(CMD_ABRIR_OBS, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        time.sleep(1) 
+        time.sleep(3) 
         
         try:
             cl = obs.ReqClient(host=HOST, port=PORTA)
