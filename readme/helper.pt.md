@@ -20,6 +20,7 @@ O root control mapper já vem pré-configurado para uso, acompanhado de dois scr
 > Esse script só é compatível com navegador Brave
 
 - `record_obs`: Um script que grava gameplays do obs em background, sem a necessidade abri-lo manualmente, caso queira gravar uma gameplay enquanto joga.
+> Necessario instalar a biblioteca `obsws_python` para funcionar corretamente: `pip install obsws_python`
 
 Você pode personalizar seus próprios scripts colocando ou o caminho do script completo ou adicionando o script dentro da pasta de `scripts` da raiz de instalação do `root-ctrl-mapper`, basta navegar ate ela
 
