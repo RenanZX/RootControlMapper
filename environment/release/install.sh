@@ -41,7 +41,7 @@ else
     echo -e "${GREEN}✨ Update completed successfully!${NC}"
   else
     echo -e "⚙️  Creating environment and copying files...${NC}"
-    cp -r "root-cmap" "$INSTALL_PATH/root-cmap"
+    cp -r "root-cmap" "$INSTALL_PATH/"
     "$GEN_PYENV" "$INSTALL_PATH/root-cmap" "$ABS_PATH/rcm_env" 
     cp root-ctrl-mapper "$SCRIPT_PATH/"
     echo -e "${GREEN} Installation completed successfully!${NC}"

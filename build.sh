@@ -19,7 +19,7 @@ if [[ $1 == "--release" ]]; then
   cargo build --release
   mv ./target/release/root_ctrl_mapper ./build/root-cmap/
   cp -r "$SOURCE_BUILD/data/." ./build/root-cmap/
-  cp -r "$SOURCE_BUILD/rcm_env" ./build/rcm_env
+  cp -r "$SOURCE_BUILD/rcm_env" ./build/
   cp "$SOURCE_BUILD/install.sh" "$SOURCE_BUILD/root-ctrl-mapper" ./build/
   if [[ $2 == "tar" ]]; then
     tar_build 
