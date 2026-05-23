@@ -101,7 +101,9 @@ impl ButtonCombo {
                         return Some(data);
                     }
                 }
-            } else if botoes[0] == self.button_pressed[0] || self.is_record_long_press(&botoes[0]) {
+            } else if (botoes.len() > 0 && self.button_pressed.len() > 0)
+                && (botoes[0] == self.button_pressed[0] || self.is_record_long_press(&botoes[0]))
+            {
                 match click_type {
                     ClickType::DoubleClick => {
                         if self.button_pressed.len() > 1
