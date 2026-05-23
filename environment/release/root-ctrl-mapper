@@ -7,6 +7,8 @@ elif [ "$1" = "-j" ]; then
   echo "$CMAP_PATH/json"
 elif [ "$1" = "-py" ]; then
   echo "$CMAP_PATH/rcm_py"
+elif [ "$1" = "-pyi" ]; then
+  echo "$CMAP_PATH/rcm_py/bin/activate"
 else
   env -C "$CMAP_PATH" ./root_ctrl_mapper "$@"
 fi
