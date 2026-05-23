@@ -6,6 +6,8 @@ Existem 8 comandos disponeis no root-ctrl-mapper:
 - `-k` : Mata a instancia do app em background
 - `-j` : Consulta o caminho dos arquivos JSON contendo os botoes/teclas mapeadas
 - `-s` : Consulta o caminho dos scripts
+- `-py` : Consulta a raiz da Instalação Python do ambiente do Root Control Mapper
+- `-pyi` : Consulta o ativador do ambiente Python do Root Control Mapper
 - `-h` : Consulta este documento helper disponivel no git
 - `-hc` : Abre o helper de linha de comandos CLI
 
@@ -20,12 +22,26 @@ O root control mapper já vem pré-configurado para uso, acompanhado de dois scr
 > Esse script só é compatível com navegador Brave
 
 - `record_obs`: Um script que grava gameplays do obs em background, sem a necessidade abri-lo manualmente, caso queira gravar uma gameplay enquanto joga.
-> Necessario instalar a biblioteca `obsws_python` para funcionar corretamente: `pip install obsws_python`
+> - Necessário ativar a opção web socket do seu obs studio: `OBS Studio > Ferramentas > Configurações de WebSocket > Ativar WebSocket`
+> - Caso deseje uma experiência mais próxima do console, ative a opção `Minimizar para a bandeja do sistema` nas suas configurações do seu obs studio.
 
 Você pode personalizar seus próprios scripts colocando ou o caminho do script completo ou adicionando o script dentro da pasta de `scripts` da raiz de instalação do `root-ctrl-mapper`, basta navegar ate ela
 
 ```shell
 cd $(root-ctrl-mapper -s)
+```
+
+## Instalando libs do Python no ambiente do Root Control Mapper
+
+O app utiliza um ambiente isolado(venv) por questões de segurança, para acessar o ambiente python do `Root Control Mapper`, digite:
+
+```shell
+source $(root-ctrl-mapper -pyi)
+```
+
+Instale todas as depêndencias que precise usando o comando `pip install`, e saia do ambiente com o comando:
+```shell
+deactivate
 ```
 
 # Modos de Operação
