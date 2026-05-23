@@ -17,6 +17,12 @@ else
   chmod +x root-ctrl-mapper
   chmod +x root-cmap/root_ctrl_mapper
 
-  cp -r root-cmap "$INSTALL_PATH/"
-  cp root-ctrl-mapper "$SCRIPT_PATH/"
+  if [ -d "$INSTALL_PATH/root-cmap" ]; then
+    cp root_ctrl_mapper "$SCRIPT_PATH/"
+    cp -r "root-cmap/scripts" "$INSTALL_PATH"
+    cp -r "root-cmap/sfx" "$INSTALL_PATH"
+  else
+    cp -r root-cmap "$INSTALL_PATH/"
+    cp root-ctrl-mapper "$SCRIPT_PATH/"
+  fi
 fi

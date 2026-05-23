@@ -68,6 +68,11 @@ Type the default command in the terminal to execute apps in development with Rus
 - A `build` folder will be created containing the project executable and the installation script.
 - To create the `.tar` file, just type `./build.sh --release tar` or, if you have already built it, `./build.sh --tar`.
 - If you want to clear the builds, type `./build.sh --clear`.
+- Check the help command, if you need:
+
+```shell
+./build.sh --help
+```
 
 ### How to check logs and run the app in debug mode
 

@@ -65,6 +65,11 @@ cargo run
 - Será criada uma pasta `build` com o executável do projeto e o script de instalação.
 - Para criar o `.tar` basta digitar `./build.sh --release tar` ou caso ja tenha feito a build, `./build.sh --tar`
 - Caso queira limpar as builds digite `./build.sh --clear`
+- Verifique os comandos com help, se precisar:
+
+```shell
+./build.sh --help
+```
 
 ### Como verificar os logs e rodar o app no modo debug
 
