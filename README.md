@@ -30,7 +30,7 @@ Joystick mapper for Linux developed in Rust. It allows mapping custom keys and s
 
 ## Project goals (current and future)
 - Create a flexible and customized experience for using the controller on Linux with all its features, *without limitations*.
-- Fix potential bugs and add more keys as needed and as the project evolves.
+- Fix potential bugs, improve features and add more keys as needed and as the project evolves.
 - Add compatibility with the Xbox Series controllers' share button.
 
 ## Installation

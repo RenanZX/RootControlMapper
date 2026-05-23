@@ -30,7 +30,7 @@ Mapeador de joysticks para Linux desenvolvido em Rust. Permite o mapeamento de t
 
 ## Objetivos do projeto (atual e futuro)
 - Criar uma experiência flexível e personalizada para uso do controle no Linux com todas as suas funcionalides, *sem limitações*.
-- Corrigir possiveis bugs e adicionar mais teclas a medida que for necessário e o projeto evoluir.
+- Corrigir possiveis bugs, melhorar funcionalidades e adicionar mais teclas a medida que for necessário e o projeto evoluir.
 - Adicionar compatibilidade com o botão share dos controles Xbox Series
 
 ## Instalação
