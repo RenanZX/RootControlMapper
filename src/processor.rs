@@ -31,6 +31,20 @@ fn get_params(script_raw: &str) -> (&str, Vec<&str>) {
     (cmd_part, parts.collect())
 }
 
+fn get_py_exec() -> PathBuf {
+    let mut local_path = env::current_exe().expect("Falha ao obter caminho do executável");
+    local_path.pop();
+
+    let py_exec = if cfg!(debug_assertions) {
+        local_path.pop();
+        local_path.pop();
+        local_path.join("environment/debug/rcm_py/bin/python")
+    } else {
+        local_path.join("rcm_py/bin/python")
+    };
+    py_exec
+}
+
 fn has_path(script_path: &str) -> bool {
     Path::new(script_path).exists()
 }
@@ -59,6 +73,7 @@ pub fn run_py(py_raw: &str) {
     } else {
         get_local_script(py_file)
     };
+    let py_exec = get_py_exec();
 
     println!(
         "{}",
@@ -67,7 +82,7 @@ pub fn run_py(py_raw: &str) {
 
     print_args(&args, "py");
 
-    let mut child = Command::new("python")
+    let mut child = Command::new(py_exec)
         .arg(script)
         .args(&args)
         .stdout(Stdio::piped())
