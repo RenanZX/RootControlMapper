@@ -40,6 +40,9 @@ Mapeador de joysticks para Linux desenvolvido em Rust. Permite o mapeamento de t
 chmod +x install.sh
 ./install.sh
 ```
+
+> Caso exista uma instalação na sua máquina, o script de instalação irá atualizar automaticamente, caso queira fazer uma instalação limpa, exclua sua instalação atual com o comando `./install.sh -u`
+
 3. Verifique a instalação com o comando:
 ```shell
 root-ctrl-mapper -v

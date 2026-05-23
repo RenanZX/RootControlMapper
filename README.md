@@ -40,6 +40,9 @@ Joystick mapper for Linux developed in Rust. It allows mapping custom keys and s
 chmod +x install.sh
 ./install.sh
 ```
+
+> If an installation already exists on your machine, the installation script will update it automatically. If you want to perform a clean install, delete your current installation using the command `./install.sh -u`
+
 3. Verify the installation with the command:
 ```shell
 root-ctrl-mapper -v
