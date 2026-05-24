@@ -1,7 +1,6 @@
 use colored::*;
 use gilrs::{Axis, Button, Event, EventType, Gilrs};
 use log::{debug, info};
-use std::mem::drop;
 use std::thread;
 use std::time::Duration;
 
