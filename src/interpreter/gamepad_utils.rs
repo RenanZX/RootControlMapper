@@ -7,6 +7,7 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
 
+use super::gamepad_virtual::VIRTUAL_GAMEPAD;
 use crate::controller::keyboard_controller;
 use crate::controller::keyboard_controller::KeyboardXbxController;
 use crate::leitor;
@@ -14,6 +15,13 @@ use crate::types::{AppAction, MapCmd};
 
 pub fn get_player1(gilrs: &mut Gilrs) -> Option<GamepadId> {
     gilrs.gamepads().next().map(|(id, _)| id)
+}
+
+pub fn get_virtual_player(gilrs: &mut Gilrs) -> Option<GamepadId> {
+    gilrs
+        .gamepads()
+        .find(|(_, gamepad)| gamepad.name() == VIRTUAL_GAMEPAD)
+        .map(|(id, _)| id)
 }
 
 pub fn print_gamepad_status(player_id: &Option<GamepadId>, gilrs: &mut Gilrs) {
