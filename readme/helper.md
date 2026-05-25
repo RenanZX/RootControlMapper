@@ -55,12 +55,12 @@ Check if the following variable is active in your environment:
 echo $SDL_GAMECONTROLLER_IGNORE_DEVICES
 ```
 
-If it returns empty, add it to your environment profile (e.g., .zshrc, .bashrc):
+If it returns empty, add it to your environment profile (e.g., `.zshrc`, `.bashrc`):
 ```shell
 export SDL_GAMECONTROLLER_IGNORE_DEVICES=0x2934/0x5690
 ```
 
-> 💡 **Tip for AppImages**: If you are using an AppImage for your front-end, you can use Gear Lever to manage it and easily add this environment variable.
+> 💡 **Tip for AppImages**: If you are using an AppImage for your front-end, you can use <a href="https://flathub.org/en/apps/it.mijorus.gearlever" target="_blank">`Gear Lever`</a> to manage it and easily add this environment variable.
 
 All set! Now `Mouse Mode` will work perfectly, preventing any ghost input issues in your favorite front-ends.
 
