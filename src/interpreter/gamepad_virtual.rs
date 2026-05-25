@@ -163,7 +163,7 @@ pub fn create_virtual_controller(
         build_virtual_device(mode_thread);
     });
 
-    thread::sleep(Duration::from_millis(500));
+    thread::sleep(Duration::from_secs(2));
     while gilrs.next_event().is_some() {}
 
     if let Some(id) = get_virtual_player(gilrs) {
