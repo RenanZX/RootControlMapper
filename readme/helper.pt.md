@@ -44,6 +44,28 @@ Instale todas as depêndencias que precise usando o comando `pip install`, e sai
 deactivate
 ```
 
+# Integrando Front-Ends de jogos(Steam, Emulation Station, etc)
+
+Para fazer a integração de front ends de jogos, certifique-se de estar em uma versão igual ou superior a `1.0.3`, verifique se tiver duvidas:
+```shell
+root-ctrl-mapper -v
+```
+
+## Configuração da Variável de Ambiente
+
+Verifique se a seguinte variável está ativa no seu ambiente:
+```shell
+echo $SDL_GAMECONTROLLER_IGNORE_DEVICES
+```
+
+Caso o retorno seja vazio, adicione ela no seu ambiente (ex.: `.zshrc`, `.bashrc`):
+```shell
+export SDL_GAMECONTROLLER_IGNORE_DEVICES=0x2934/0x5690
+```
+> 💡**Dica para AppImages**: Caso esteja usando um app Image do seu front end, você pode usar o <a href="https://flathub.org/en/apps/it.mijorus.gearlever" target="_blank">`Gear Lever`</a> para gerenciar e adicionar essa variável ambiente.
+
+Pronto! Agora o `Mouse Mode` funcionará perfeitamente, sem problemas de ghost input nos seus front-ends favoritos.
+
 # Modos de Operação
 
 O root control mapper possui 2 modos de operação intercambeáveis:

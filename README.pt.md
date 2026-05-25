@@ -43,11 +43,16 @@ chmod +x install.sh
 
 > Caso exista uma instalação na sua máquina, o script de instalação irá atualizar automaticamente, caso queira fazer uma instalação limpa, exclua sua instalação atual com o comando `./install.sh -u`
 
-3. Verifique a instalação com o comando:
+3. Adicione as configurações necessárias (Caso tenha feito não é necessário seguir essa etapa):
+```shell
+sudo ./install.sh -ap
+```
+
+4. Verifique a instalação com o comando:
 ```shell
 root-ctrl-mapper -v
 ```
-4. Caso queira consultar os comandos disponiveis:
+5. Caso queira consultar os comandos disponiveis:
 ```shell
 root-ctrl-mapper -hc
 ```
