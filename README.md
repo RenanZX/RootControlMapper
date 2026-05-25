@@ -43,11 +43,21 @@ chmod +x install.sh
 
 > If an installation already exists on your machine, the installation script will update it automatically. If you want to perform a clean install, delete your current installation using the command `./install.sh -u`
 
-3. Verify the installation with the command:
+3. Adding the necessary settings (If you have already done this, you can skip this step):
+```shell
+sudo ./install.sh -ap
+```
+
+4. Log out and log back into your system to apply the necessary settings.
+```shell
+logout
+```
+
+5. Verify the installation with the command:
 ```shell
 root-ctrl-mapper -v
 ```
-4. If you want to check the available commands:
+6. If you want to check the available commands:
 ```shell
 root-ctrl-mapper -hc
 ```

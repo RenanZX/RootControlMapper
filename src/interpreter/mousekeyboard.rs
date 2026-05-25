@@ -4,6 +4,7 @@ use log::{debug, info};
 use std::thread;
 use std::time::Duration;
 
+use super::gamepad_virtual::create_virtual_controller;
 use crate::controller::button_controller::ButtonCombo;
 use crate::processor;
 use crate::types::InputController::Gamepad;
@@ -18,7 +19,8 @@ pub fn read_input_controller(
     clipboard: &Option<Vec<Key>>,
 ) -> Option<AppMode> {
     let mut gilrs = Gilrs::new().unwrap();
-    let mode_value;
+
+    // thread::sleep(Duration::from_millis(500));
 
     // 1. Criar o teclado virtual + mouse
     let mut device: VirtualDevice = build_kb_device_mouse();
@@ -26,7 +28,11 @@ pub fn read_input_controller(
     // Pausa crucial para o sistema operacional registrar o novo "hardware"
     thread::sleep(Duration::from_millis(300));
 
-    let (mut player1_id, _) = check_gamepad(&mut gilrs, &data_map);
+    let (cid, _) = check_gamepad(&mut gilrs, &data_map);
+
+    let (mut player1_id, mut mode_shared) =
+        create_virtual_controller(&mut gilrs, cid, AppMode::MouseMode);
+
     let mut button_control = ButtonCombo::create();
 
     // println!("Iniciando loop");
@@ -98,8 +104,11 @@ pub fn read_input_controller(
 
         if !gamepad_connected || get_player1(&mut gilrs).is_none() {
             button_control = ButtonCombo::create();
-            let (new_id, _) = check_gamepad(&mut gilrs, &data_map);
-            player1_id = new_id;
+            gilrs = Gilrs::new().unwrap();
+
+            let (cid, _) = check_gamepad(&mut gilrs, &data_map);
+            (player1_id, mode_shared) =
+                create_virtual_controller(&mut gilrs, cid, AppMode::MouseMode);
             continue;
         }
 
@@ -113,11 +122,13 @@ pub fn read_input_controller(
                 if let Some(action) = &data_checked.action {
                     match action {
                         AppAction::ChangeMode => {
-                            mode_value = AppMode::GameMode;
+                            let mut change_mode = mode_shared.write().unwrap();
+                            *change_mode = AppMode::GameMode;
                             break;
                         }
                         AppAction::VirtualKeyboard => {
-                            mode_value = AppMode::KeyboardMode;
+                            let mut change_mode = mode_shared.write().unwrap();
+                            *change_mode = AppMode::KeyboardMode;
                             break;
                         }
                         AppAction::Exec(exec_val) => {
@@ -162,5 +173,7 @@ pub fn read_input_controller(
         thread::sleep(Duration::from_millis(10));
     }
 
-    return Some(mode_value);
+    let new_mode = mode_shared.read().unwrap();
+
+    return Some((*new_mode).clone());
 }

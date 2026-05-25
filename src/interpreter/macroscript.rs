@@ -67,7 +67,9 @@ pub fn read_input_controller(data_map: Vec<MapCmd>) -> Option<AppMode> {
         }
 
         if !gamepad_connected || get_player1(&mut gilrs).is_none() {
+            thread::sleep(Duration::from_millis(300));
             button_control = ButtonCombo::create();
+            gilrs = Gilrs::new().unwrap();
             let (new_id, new_kbd) = check_gamepad(&mut gilrs, &data_map);
             player1_id = new_id;
             xbox_keyboard_option = new_kbd;

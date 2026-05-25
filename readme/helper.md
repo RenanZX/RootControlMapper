@@ -31,7 +31,6 @@ You can customize your own scripts by either providing the full script path or a
 cd $(root-ctrl-mapper -s)
 ```
 
-
 ## Installing Python libs in the Root Control Mapper environment
 
 The app uses an isolated environment (venv) for security reasons. To access the Root Control Mapper Python environment, type:
@@ -43,6 +42,27 @@ Install all the dependencies you need using the `pip install` command, and exit 
 ```shell
 deactivate
 ```
+
+# Integrating Game Front-Ends (Steam, Emulation Station, etc.)
+To integrate your game front-ends, make sure you are running version `1.0.3` or higher. If you are unsure, check your current version with:
+```shell
+root-ctrl-mapper -v
+```
+
+## Environment Variable Configuration
+Check if the following variable is active in your environment:
+```shell
+echo $SDL_GAMECONTROLLER_IGNORE_DEVICES
+```
+
+If it returns empty, add it to your environment profile (e.g., .zshrc, .bashrc):
+```shell
+export SDL_GAMECONTROLLER_IGNORE_DEVICES=0x2934/0x5690
+```
+
+> 💡 **Tip for AppImages**: If you are using an AppImage for your front-end, you can use Gear Lever to manage it and easily add this environment variable.
+
+All set! Now Mouse Mode will work perfectly, preventing any ghost input issues in your favorite front-ends.
 
 # Operation Modes
 

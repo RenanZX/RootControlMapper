@@ -15,7 +15,7 @@ use std::sync::mpsc::{Sender, channel};
 use crate::helper::open_helper;
 use crate::version::get_version;
 use crate::{
-    interpreter::gamepad_utils::get_player1,
+    interpreter::gamepad_utils::get_virtual_player,
     types::{AppMode, InputController},
 };
 use colored::*;
@@ -270,7 +270,7 @@ impl KeyboardApp {
         layout: &mut Vec<Vec<(&'static str, f32)>>,
         ui: &mut egui::Ui,
     ) {
-        let player1_id = get_player1(&mut self.gilrs);
+        let player1_id = get_virtual_player(&mut self.gilrs);
         let mut lt_pressed = false;
         while let Some(Event { id, event, .. }) = self.gilrs.next_event() {
             if Some(id) == player1_id {
@@ -341,18 +341,20 @@ impl KeyboardApp {
                                 self.stick_delta.y = val;
                             }
                             gilrs::Axis::LeftZ => {
-                                if val >= 1.0 && !lt_pressed {
+                                let ax = val.abs();
+                                if ax <= 0.5 && !lt_pressed {
                                     self.process_key(ui, "Change");
                                     lt_pressed = true;
-                                } else if val <= 0.8 && lt_pressed {
+                                } else if ax >= 0.9 && lt_pressed {
                                     lt_pressed = false;
                                 }
                             }
                             gilrs::Axis::RightZ => {
-                                if val >= 1.0 && !lt_pressed {
+                                let ax = val.abs();
+                                if ax <= 0.5 && !lt_pressed {
                                     self.process_key(ui, "Change2");
                                     lt_pressed = true;
-                                } else if val <= 0.8 && lt_pressed {
+                                } else if ax >= 0.9 && lt_pressed {
                                     lt_pressed = false;
                                 }
                             }
@@ -562,9 +564,9 @@ pub fn render_vk() -> (AppMode, Option<Vec<Key>>) {
         Ok(_) => {
             if let Ok(mut clipboard) = rx.recv() {
                 clipboard.print_keys();
-
                 println!("{}", "Keyboard is sucessfully closed!".green());
                 let data_cmd = clipboard.get_keys();
+
                 return (AppMode::MouseMode, Some(data_cmd));
             }
             println!("{}", "Keyboard is sucessfully closed!".green());
