@@ -48,11 +48,16 @@ chmod +x install.sh
 sudo ./install.sh -ap
 ```
 
-4. Verify the installation with the command:
+4. Log out and log back into your system to apply the necessary settings.
+```shell
+logout
+```
+
+5. Verify the installation with the command:
 ```shell
 root-ctrl-mapper -v
 ```
-5. If you want to check the available commands:
+6. If you want to check the available commands:
 ```shell
 root-ctrl-mapper -hc
 ```
