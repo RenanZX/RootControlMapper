@@ -62,7 +62,7 @@ export SDL_GAMECONTROLLER_IGNORE_DEVICES=0x2934/0x5690
 
 > 💡 **Tip for AppImages**: If you are using an AppImage for your front-end, you can use Gear Lever to manage it and easily add this environment variable.
 
-All set! Now Mouse Mode will work perfectly, preventing any ghost input issues in your favorite front-ends.
+All set! Now `Mouse Mode` will work perfectly, preventing any ghost input issues in your favorite front-ends.
 
 # Operation Modes
 
