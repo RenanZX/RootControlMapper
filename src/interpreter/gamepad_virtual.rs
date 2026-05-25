@@ -1,9 +1,9 @@
 use crate::interpreter::gamepad_utils::get_virtual_player;
 use crate::types::AppMode;
 use colored::*;
-use evdev::Device;
 use evdev::uinput::{VirtualDevice, VirtualDeviceBuilder};
 use evdev::{AbsInfo, AbsoluteAxisType, AttributeSet, Key, UinputAbsSetup};
+use evdev::{Device, InputId};
 use gilrs::{GamepadId, Gilrs};
 use log::debug;
 use std::io;
@@ -53,6 +53,12 @@ fn check_device() -> bool {
 
 fn build_device_controller() -> Result<VirtualDevice, io::Error> {
     let mut keys = AttributeSet::<Key>::new();
+    let id = InputId::new(
+        evdev::BusType::BUS_USB,
+        0x2934, //id Vendor
+        0x5690, //idProduct
+        0,
+    );
 
     // Botões de Ação principais
     keys.insert(Key::BTN_SOUTH); // Botão A
@@ -82,6 +88,7 @@ fn build_device_controller() -> Result<VirtualDevice, io::Error> {
     let virtual_dev = VirtualDeviceBuilder::new()?
         .name(VIRTUAL_GAMEPAD)
         .with_keys(&keys)?
+        .input_id(id)
         .with_absolute_axis(&UinputAbsSetup::new(AbsoluteAxisType::ABS_X, analog_info))?
         .with_absolute_axis(&UinputAbsSetup::new(AbsoluteAxisType::ABS_Y, analog_info))?
         .with_absolute_axis(&UinputAbsSetup::new(AbsoluteAxisType::ABS_RX, analog_info))?
