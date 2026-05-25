@@ -75,7 +75,7 @@ pub fn run_app() {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("off"))
         .filter_module("gilrs_core", log::LevelFilter::Off)
         .init();
-    let mut mode: AppMode = AppMode::MouseMode;
+    let mut mode: AppMode = AppMode::GameMode;
     let mut clipboard: Option<Vec<Key>> = None;
     print_version();
     loop {

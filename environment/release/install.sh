@@ -64,10 +64,10 @@ else
 
   if [ -d "$INSTALL_PATH/root-cmap" ]; then
     echo -e "${YELLOW}🔄 Existing installation found. Updating...${NC}"
-    cp root-ctrl-mapper "$SCRIPT_PATH/"
-    cp -r "root-cmap/scripts" "$INSTALL_PATH/root-cmap/"
-    cp -r "root-cmap/sfx" "$INSTALL_PATH/root-cmap/"
-    cp "root-cmap/root_ctrl_mapper" "$INSTALL_PATH/"
+    cp -f root-ctrl-mapper "$SCRIPT_PATH/"
+    cp -rf "root-cmap/scripts" "$INSTALL_PATH/root-cmap/"
+    cp -rf "root-cmap/sfx" "$INSTALL_PATH/root-cmap/"
+    cp -f "root-cmap/root_ctrl_mapper" "$INSTALL_PATH/"
     
     if [ ! -d "$INSTALL_PATH/root-cmap/rcm_py" ]; then
       echo -e "⚙️  Setting up Python environment..."
