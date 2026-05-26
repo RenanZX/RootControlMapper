@@ -7,7 +7,7 @@ use std::time::Duration;
 use crate::controller::button_controller::ButtonCombo;
 use crate::controller::keyboard_controller::StatusButton;
 use crate::interpreter::gamepad_utils::*;
-use crate::processor;
+use crate::processor::{macro_key, runner};
 use crate::types::InputController::{Gamepad, RecordBtn};
 
 use crate::types::{AppAction, AppMode, MapCmd};
@@ -107,17 +107,17 @@ pub fn read_input_controller(data_map: Vec<MapCmd>) -> Option<AppMode> {
                             break;
                         }
                         AppAction::Exec(exec_val) => {
-                            processor::run_cmd(&exec_val);
+                            runner::run_cmd(&exec_val);
                             button_control.combo_release();
                             thread::sleep(Duration::from_millis(20));
                         }
                         AppAction::PyExec(py_file) => {
-                            processor::run_py(&py_file);
+                            runner::run_py(&py_file);
                             button_control.combo_release();
                             thread::sleep(Duration::from_millis(20));
                         }
                         AppAction::MacroKeys(macro_data) => {
-                            processor::exec_macro(&macro_data, &mut device);
+                            macro_key::exec_macro(&macro_data, &mut device);
                             button_control.combo_release();
                             thread::sleep(Duration::from_millis(20));
                         }

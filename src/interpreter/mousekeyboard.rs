@@ -6,7 +6,7 @@ use std::time::Duration;
 
 use super::gamepad_virtual::create_virtual_controller;
 use crate::controller::button_controller::ButtonCombo;
-use crate::processor;
+use crate::processor::{macro_key, runner};
 use crate::types::InputController::Gamepad;
 use crate::types::{AppAction, AppMode, MapCmd};
 
@@ -60,7 +60,7 @@ pub fn read_input_controller(
                     EventType::ButtonReleased(_, _) => {
                         // Caso algum botao seja pressionado, o array sera iterado
                         if let Some(key) = key_pressed {
-                            processor::release_key(&key, &mut device);
+                            macro_key::release_key(&key, &mut device);
                             key_pressed = None;
                         }
                     }
@@ -112,7 +112,7 @@ pub fn read_input_controller(
             continue;
         }
 
-        processor::move_mouse(axis_x, axis_y, &mut device);
+        macro_key::move_mouse(axis_x, axis_y, &mut device);
 
         if botao_pressionado {
             // button_control.print_buttons();
@@ -132,17 +132,17 @@ pub fn read_input_controller(
                             break;
                         }
                         AppAction::Exec(exec_val) => {
-                            processor::run_cmd(&exec_val);
+                            runner::run_cmd(&exec_val);
                             button_control.combo_release();
                             thread::sleep(Duration::from_millis(20));
                         }
                         AppAction::PyExec(py_file) => {
-                            processor::run_py(&py_file);
+                            runner::run_py(&py_file);
                             button_control.combo_release();
                             thread::sleep(Duration::from_millis(20));
                         }
                         AppAction::MacroKeys(macro_data) => {
-                            key_pressed = processor::exec_macro(macro_data, &mut device);
+                            key_pressed = macro_key::exec_macro(macro_data, &mut device);
                             button_control.combo_release();
                             thread::sleep(Duration::from_millis(20));
                         }
@@ -152,12 +152,12 @@ pub fn read_input_controller(
                                     "{}",
                                     format!("Run macro clipboard: {:?}", macro_data).purple()
                                 );
-                                key_pressed = processor::exec_macro(&macro_data, &mut device);
+                                key_pressed = macro_key::exec_macro(&macro_data, &mut device);
                                 button_control.combo_release();
                                 thread::sleep(Duration::from_millis(20));
                             } else {
                                 debug!("{}", format!("Copy to clipboard"));
-                                processor::paste_clipboard(&mut device);
+                                macro_key::paste_clipboard(&mut device);
                                 button_control.combo_release();
                                 thread::sleep(Duration::from_millis(20));
                             }
