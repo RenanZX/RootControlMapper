@@ -6,9 +6,12 @@ There are 8 commands available in root-ctrl-mapper:
 - `-k` : Kills the background app instance
 - `-j` : Queries the path of the JSON files containing the mapped buttons/keys
 - `-s` : Queries the path of the scripts
-- `-h` : Queries this helper document available on GitHub
 - `-py` : Queries the Python installation root of the Root Control Mapper environment
 - `-pyi` : Queries the Python environment activator of the Root Control Mapper
+- `-l` : Queries the root of the Lua environment in Root Control Mapper
+- `-li` : Installs Lua packages via LuaRocks in the Root Control Mapper environment
+- `-fix` : Fixes the Lua environment (if it doesn't work)
+- `-h` : Queries this helper document available on GitHub
 - `-hc` : Opens the CLI command line helper
 
 > You can check all available commands by typing `root-ctrl-mapper -hc`
@@ -42,6 +45,16 @@ Install all the dependencies you need using the `pip install` command, and exit 
 ```shell
 deactivate
 ```
+
+## Installing Lua Libraries in Root Control Mapper Environment
+
+The app also uses an isolated Lua environment. To install Lua packages via `luarocks`, use the command:
+
+```shell
+root-ctrl-mapper -li <lua-library>
+```
+
+This command is equivalent to `luarocks install <lua-library>`
 
 # Integrating Game Front-Ends (Steam, Emulation Station, etc.)
 To integrate your game front-ends, make sure you are running version `1.0.3` or higher. If you are unsure, check your current version with:

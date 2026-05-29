@@ -8,6 +8,9 @@ Existem 8 comandos disponeis no root-ctrl-mapper:
 - `-s` : Consulta o caminho dos scripts
 - `-py` : Consulta a raiz da Instalação Python do ambiente do Root Control Mapper
 - `-pyi` : Consulta o ativador do ambiente Python do Root Control Mapper
+- `-l` : Consulta a raiz do ambiente Lua do Root Control Mapper
+- `-li` : Instala pacotes do Lua via LuaRocks no ambiente do Root Control Mapper
+- `-fix` : Corrige o ambiente Lua (caso não funcione)
 - `-h` : Consulta este documento helper disponivel no git
 - `-hc` : Abre o helper de linha de comandos CLI
 
@@ -43,6 +46,16 @@ Instale todas as depêndencias que precise usando o comando `pip install`, e sai
 ```shell
 deactivate
 ```
+
+## Instalando libs do Lua no ambiente do Root Control Mapper
+
+O app também utiliza um ambiente isolado do Lua, para instalar pacotes do lua, via `luarocks`, use o comando:
+
+```shell
+root-ctrl-mapper -li <biblioteca-lua>
+```
+
+Esse comando é equivalente ao `luarocks install <biblioteca-lua>`
 
 # Integrando Front-Ends de jogos(Steam, Emulation Station, etc)
 
@@ -255,6 +268,7 @@ A lista a seguir tem todos os botoes/macros mapeaveis para personalizar sua conf
 
 - `exec`: Caminho para um script bash ou o nome do script caso esteja na pasta `scripts`
 - `py_exec`: Caminho para um script python ou o nome do script caso esteja na pasta `scripts`
+- `lua_exec`: Caminho para um script lua ou o nome do script caso esteja na pasta `scripts`
 
 ## Flags Especiais (json)
 

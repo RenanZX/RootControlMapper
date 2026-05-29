@@ -4,7 +4,7 @@
 
 # Root Control Mapper
 
-Mapeador de joysticks para Linux desenvolvido em Rust. Permite o mapeamento de teclas e scripts personalizados (Bash/Python), contando com um um teclado virtual otimizado para controles.
+Mapeador de joysticks para Linux desenvolvido em Rust. Permite o mapeamento de teclas e scripts personalizados (Bash, Python e Lua), contando com um um teclado virtual otimizado para controles.
 
 <p align="center">
 <a href="#uso">Uso</a> - <a href="#installation">Instalação</a> - <a href="readme/helper.pt.md#personalizando-comandos">Comandos</a> - <a href="readme/helper.pt.md#scripts-personalizados">Scripts</a> - <a href="dev/guide.pt.md">Desenvolvimento</a>

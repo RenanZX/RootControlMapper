@@ -4,7 +4,7 @@
 
 # Root Control Mapper
 
-Joystick mapper for Linux developed in Rust. It allows mapping custom keys and scripts (Bash/Python), featuring a virtual keyboard optimized for controllers.
+Joystick mapper for Linux developed in Rust. It allows mapping custom keys and scripts (Bash, Python and Lua), featuring a virtual keyboard optimized for controllers.
 
 <p align="center">
 <a href="#usage">Usage</a> - <a href="#installation">Installation</a> - <a href="readme/helper.md#customizing-commands">Commands</a> - <a href="readme/helper.md#custom-scripts">Scripts</a> - <a href="dev/guide.md">Development</a>
