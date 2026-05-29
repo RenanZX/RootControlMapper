@@ -11,6 +11,7 @@ mod version;
 use crate::{
     app::{get_options, install_pack_lua, run_app, run_background, stop_background},
     helper::{open_cmds, open_helper},
+    processor::runner::fix_env_lua,
     version::print_version,
 };
 
@@ -19,6 +20,7 @@ fn main() {
         match option.as_str() {
             "-k" => stop_background(),
             "-li" => install_pack_lua(),
+            "-fix" => fix_env_lua(),
             "-b" => run_background(),
             "-h" => open_helper(),
             "-v" => print_version(),

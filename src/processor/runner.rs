@@ -1,3 +1,4 @@
+use super::utils::clear_folder;
 use colored::*;
 // use log::{debug, error};
 use std::env;
@@ -25,6 +26,50 @@ fn get_params(script_raw: &str) -> (&str, Vec<&str>) {
     let mut parts = script_raw.split_whitespace();
     let cmd_part = parts.next().unwrap_or("");
     (cmd_part, parts.collect())
+}
+
+pub fn fix_env_lua() {
+    let local_path = env::current_dir().expect("Falha ao obter caminho da pasta");
+    let main_path = if cfg!(debug_assertions) {
+        local_path.join("environment/debug")
+    } else {
+        local_path.clone()
+    };
+    let script = main_path.join("fix/env_lua.sh");
+
+    let lua_dir = main_path.join("rcm_lua");
+    let _ = clear_folder(&lua_dir);
+
+    println!("{}", "Fix Lua environment".to_string().blue());
+    // println!("Main Dir: {}", main_path.display());
+    // println!("Lua Dir: {}", lua_dir.display());
+
+    let mut child = Command::new(script)
+        .args([local_path, lua_dir])
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .expect("Falha ao executar o comando");
+
+    let status = child.wait().expect("Falha ao aguardar processo");
+
+    if status.success() {
+        let mut saida = String::new();
+        if let Some(mut stdout) = child.stdout {
+            stdout.read_to_string(&mut saida).ok();
+        }
+        println!("{} {}", "Saida:".to_string().green().bold(), saida);
+    } else {
+        let mut err = String::new();
+        if let Some(mut stderr) = child.stderr {
+            stderr.read_to_string(&mut err).ok();
+        }
+        println!(
+            "{} {}",
+            "Erro:".to_string().red().bold(),
+            err.to_string().red()
+        );
+    }
 }
 
 fn get_py_exec() -> PathBuf {
