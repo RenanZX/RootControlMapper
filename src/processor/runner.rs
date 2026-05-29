@@ -41,6 +41,20 @@ fn get_py_exec() -> PathBuf {
     py_exec
 }
 
+fn get_lua_exec() -> PathBuf {
+    let mut local_path = env::current_exe().expect("Falha ao obter caminho do executável");
+    local_path.pop();
+
+    let lua_exec = if cfg!(debug_assertions) {
+        local_path.pop();
+        local_path.pop();
+        local_path.join("environment/debug/rcm_lua/run_lua.sh")
+    } else {
+        local_path.join("rcm_lua/run_lua.sh")
+    };
+    lua_exec
+}
+
 fn has_path(script_path: &str) -> bool {
     Path::new(script_path).exists()
 }
@@ -48,16 +62,12 @@ fn has_path(script_path: &str) -> bool {
 fn print_args(args: &Vec<&str>, type_script: &str) {
     if args.len() > 0 {
         let all_args = args.join(" ");
-        if type_script == "bash" {
-            println!(
-                "{}",
-                format!("With args: {}", all_args).truecolor(255, 100, 255)
-            );
-        } else {
-            println!(
-                "{}",
-                format!("With args: {}", all_args).truecolor(180, 140, 0)
-            );
+        let args_to_print = format!("With args: {}", all_args);
+        match type_script {
+            "bash" => println!("{}", args_to_print.truecolor(255, 100, 255)),
+            "py" => println!("{}", args_to_print.truecolor(180, 140, 0)),
+            "lua" => println!("{}", args_to_print.truecolor(173, 216, 230)),
+            _ => (),
         }
     }
 }
@@ -79,6 +89,47 @@ pub fn run_py(py_raw: &str) {
     print_args(&args, "py");
 
     let mut child = Command::new(py_exec)
+        .arg(script)
+        .args(&args)
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .expect("Falha ao executar o comando");
+
+    let mut stdout = child.stdout.take().expect("Falha ao abrir stdout");
+    let mut stderr = child.stderr.take().expect("Falha ao abrir stderr");
+
+    let status = child.wait().expect("Falha ao aguardar processo");
+
+    if status.success() {
+        let mut saida = String::new();
+        stdout.read_to_string(&mut saida).ok();
+        println!("{} {}", "Saida:".to_string().green().bold(), saida);
+    } else {
+        let mut err = String::new();
+        stderr.read_to_string(&mut err).ok();
+        println!(
+            "{} {}",
+            "Erro:".to_string().red().bold(),
+            err.to_string().red()
+        );
+    }
+}
+
+pub fn run_lua(lua_raw: &String) {
+    let (lua_file, args) = get_params(lua_raw);
+    let script: PathBuf = if has_path(lua_file) {
+        PathBuf::from(lua_file)
+    } else {
+        get_local_script(lua_file)
+    };
+    let lua_exec = get_lua_exec();
+
+    println!("{}", format!("Run script Lua {}", script.display()).blue());
+
+    print_args(&args, "lua");
+
+    let mut child = Command::new(lua_exec)
         .arg(script)
         .args(&args)
         .stdout(Stdio::piped())

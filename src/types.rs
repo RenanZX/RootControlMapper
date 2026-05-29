@@ -57,6 +57,7 @@ impl AppMode {
 pub enum AppAction {
     Exec(String),
     PyExec(String),
+    LuaExec(String),
     ChangeMode,
     VirtualKeyboard,
     ClipboardBuffer,

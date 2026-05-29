@@ -21,6 +21,7 @@ enum ClickTypeStr {
 pub enum AppActionStr {
     Exec(String),
     PyExec(String),
+    LuaExec(String),
     ChangeMode(bool),
     VirtualKeyboard(bool),
     ClipboardBuffer(bool),
@@ -56,6 +57,7 @@ pub fn print_data(dados_json: &Vec<MapCmd>) {
             match action {
                 AppAction::Exec(cmd) => debug!("Cmd: {:?}", cmd),
                 AppAction::PyExec(pyfile) => debug!("PyScript: {:?}", pyfile),
+                AppAction::LuaExec(luafile) => debug!("LuaScript: {:?}", luafile),
                 AppAction::MacroKeys(macro_keys) => debug!("Macros: {:?}", macro_keys),
                 AppAction::MoveAxis(axis) => debug!("Move Axis: {:?}", axis),
                 _ => (),
@@ -116,6 +118,10 @@ fn str_to_map(map_cmd: &MapCmdStr, app_mode: &AppMode) -> Result<MapCmd, Validat
             }
             AppActionStr::PyExec(py_file) => {
                 action_cmd = Some(AppAction::PyExec(py_file.to_string()));
+                buttons = validate_buttons(&map_cmd.buttons)?;
+            }
+            AppActionStr::LuaExec(lua_file) => {
+                action_cmd = Some(AppAction::LuaExec(lua_file.to_string()));
                 buttons = validate_buttons(&map_cmd.buttons)?;
             }
             AppActionStr::VirtualKeyboard(virtual_keyboard) => {

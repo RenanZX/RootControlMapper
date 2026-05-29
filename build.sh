@@ -1,8 +1,11 @@
 #!/bin/bash
 
-SOURCE_BUILD="environment/release"
-GEN_ENV_PY="$SOURCE_BUILD/rcm_env/generate_env.sh"
+SOURCE_RELEASE="environment/release"
+GEN_ENV_PY="$SOURCE_RELEASE/rcm_env/generate_env.sh"
 SOURCE_DEBUG="environment/debug"
+GEN_ENV_LUA="$SOURCE_RELEASE/rcm_lua/generate_env.sh"
+ABS_DEBUG="$(pwd)/$SOURCE_DEBUG"
+ABS_BUILD="$(pwd)/$SOURCE_RELEASE"
 
 tar_name() {
   NAME_TAR=$(cargo pkgid | cut -d# -f2 | cut -d: -f2 | sed 's/_/-/g; s/@/-/')
@@ -14,13 +17,26 @@ tar_build() {
   cd build && tar -czvf "../$NAME_TAR" .
 }
 
+debug_env() {
+  if [[ ! -d "$SOURCE_DEBUG/rcm_lua" || "$1" = "rebuild" ]]; then
+    chmod +x "$GEN_ENV_LUA"
+    "$GEN_ENV_LUA" "$ABS_BUILD" "$ABS_DEBUG/rcm_lua"
+  fi
+  if [[ ! -d "$SOURCE_DEBUG/rcm_py" || "$1" = "rebuild" ]]; then
+    chmod +x "$GEN_ENV_PY"
+    "$GEN_ENV_PY" "$SOURCE_DEBUG" "$SOURCE_RELEASE/rcm_env"
+  fi
+}
+
 if [[ $1 == "--release" ]]; then
   mkdir -p ./build/root-cmap
   cargo build --release
   mv ./target/release/root_ctrl_mapper ./build/root-cmap/
-  cp -r "$SOURCE_BUILD/data/." ./build/root-cmap/
-  cp -r "$SOURCE_BUILD/rcm_env" ./build/
-  cp "$SOURCE_BUILD/install.sh" "$SOURCE_BUILD/root-ctrl-mapper" ./build/
+  cp -r "$SOURCE_RELEASE/data/." ./build/root-cmap/
+  chmod +x "$GEN_ENV_LUA"
+  "$GEN_ENV_LUA" "$ABS_BUILD" "$(pwd)/build/root-cmap/rcm_lua"
+  cp -r "$SOURCE_RELEASE/rcm_env" ./build/
+  cp "$SOURCE_RELEASE/install.sh" "$SOURCE_RELEASE/root-ctrl-mapper" ./build/
   if [[ $2 == "tar" ]]; then
     tar_build 
   fi
@@ -31,9 +47,15 @@ elif [[ $1 == "--tar" ]]; then
 elif [[ $1 == "--debug" ]]; then
   if [ ! -d "$SOURCE_DEBUG" ]; then
     mkdir -p "$SOURCE_DEBUG"
-    cp -r "$SOURCE_BUILD/data/." "$SOURCE_DEBUG/"
-    chmod +x "$GEN_ENV_PY"
-    "$GEN_ENV_PY" "$SOURCE_DEBUG" "$SOURCE_BUILD/rcm_env"
+    cp -r "$SOURCE_RELEASE/data/." "$SOURCE_DEBUG/"
+    debug_env 
+    
+  elif [[ $2 == "preserve-json" ]]; then
+    mkdir -p "$SOURCE_DEBUG"
+    cp -r "$SOURCE_RELEASE/data/scripts" "$SOURCE_DEBUG/"
+    cp -r "$SOURCE_RELEASE/data/sfx" "$SOURCE_DEBUG/"
+
+    debug_env "rebuild"
   fi
 elif [[ $1 == "--clear" ]]; then
   TAR_NAME=$(tar_name)

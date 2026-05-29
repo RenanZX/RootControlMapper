@@ -68,17 +68,24 @@ else
     cp -rf "root-cmap/scripts" "$INSTALL_PATH/root-cmap/"
     cp -rf "root-cmap/sfx" "$INSTALL_PATH/root-cmap/"
     cp -f "root-cmap/root_ctrl_mapper" "$INSTALL_PATH/root-cmap/root_ctrl_mapper"
+
+    echo -e "⚙️ Setting up envioronment..."
+
+    if [ ! -d "$INSTALL_PATH/root-cmap/rcm_lua" ]; then
+      cp -rf "root-cmap/rcm_lua" "$INSTALL_PATH/root-cmap/rcm_lua"
+    fi
     
     if [ ! -d "$INSTALL_PATH/root-cmap/rcm_py" ]; then
-      echo -e "⚙️  Setting up Python environment..."
       "$GEN_PYENV" "$INSTALL_PATH/root-cmap" "$ABS_PATH/rcm_env"  
     fi
     add_env
+
     echo -e "${GREEN}✨ Update completed successfully!${NC}"
   else
     echo -e "⚙️  Creating environment and copying files...${NC}"
     cp -r "root-cmap" "$INSTALL_PATH/"
     "$GEN_PYENV" "$INSTALL_PATH/root-cmap" "$ABS_PATH/rcm_env" 
+
     cp root-ctrl-mapper "$SCRIPT_PATH/"
     add_env
     echo -e "${GREEN} Installation completed successfully!${NC}"

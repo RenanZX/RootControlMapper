@@ -116,6 +116,11 @@ pub fn read_input_controller(data_map: Vec<MapCmd>) -> Option<AppMode> {
                             button_control.combo_release();
                             thread::sleep(Duration::from_millis(20));
                         }
+                        AppAction::LuaExec(lua_file) => {
+                            runner::run_lua(&lua_file);
+                            button_control.combo_release();
+                            thread::sleep(Duration::from_millis(20));
+                        }
                         AppAction::MacroKeys(macro_data) => {
                             macro_key::exec_macro(&macro_data, &mut device);
                             button_control.combo_release();
