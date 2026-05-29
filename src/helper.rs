@@ -22,6 +22,8 @@ pub fn open_cmds() {
         "-k - Kill instance of app running in background".red(),
         "-py - Show Python Env location of Root control mapper".yellow(),
         "-pyi - Show Python Env activator of Root control mapper".yellow(),
+        "-l - Show Lua Env location of Root control mapper".blue(),
+        "-li - Install Lua packages".blue(),
         "-j - Show JSON maps folder location".orange(),
         "-s - Show Scripts folder location".orange(),
         "-h - Open Helper of settings and maps".blue(),

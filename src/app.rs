@@ -1,6 +1,7 @@
 use crate::interpreter;
 use crate::interpreter::vk::vk_ui::render_vk;
 use crate::leitor;
+use crate::processor::runner::install_package_lua;
 use crate::types::AppMode;
 use crate::version::print_version;
 
@@ -16,6 +17,16 @@ const PID_FILE: &str = "/tmp/pid_root_ctrlmapper.pid";
 
 pub fn get_options() -> Option<String> {
     env::args().nth(1)
+}
+
+pub fn install_pack_lua() {
+    let args: Vec<String> = env::args().skip(2).collect();
+    if args.is_empty() {
+        return;
+    }
+
+    let args_str = args.join(" ");
+    install_package_lua(&args_str);
 }
 
 pub fn run_background() {

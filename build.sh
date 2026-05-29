@@ -21,6 +21,8 @@ debug_env() {
   if [[ ! -d "$SOURCE_DEBUG/rcm_lua" || "$1" = "rebuild" ]]; then
     chmod +x "$GEN_ENV_LUA"
     "$GEN_ENV_LUA" "$ABS_BUILD" "$ABS_DEBUG/rcm_lua"
+    mkdir -p "$SOURCE_DEBUG/fix"
+    cp -f "$GEN_ENV_LUA" "$SOURCE_DEBUG/fix/env_lua.sh"
   fi
   if [[ ! -d "$SOURCE_DEBUG/rcm_py" || "$1" = "rebuild" ]]; then
     chmod +x "$GEN_ENV_PY"
@@ -29,12 +31,14 @@ debug_env() {
 }
 
 if [[ $1 == "--release" ]]; then
-  mkdir -p ./build/root-cmap
+  ROOT_BUILD="./build/root-cmap"
+  mkdir -p "$ROOT_BUILD/fix"
   cargo build --release
-  mv ./target/release/root_ctrl_mapper ./build/root-cmap/
-  cp -r "$SOURCE_RELEASE/data/." ./build/root-cmap/
+  mv ./target/release/root_ctrl_mapper "$ROOT_BUILD/"
+  cp -r "$SOURCE_RELEASE/data/." "$ROOT_BUILD/"
   chmod +x "$GEN_ENV_LUA"
   "$GEN_ENV_LUA" "$ABS_BUILD" "$(pwd)/build/root-cmap/rcm_lua"
+  cp -f "$GEN_ENV_LUA" "$ROOT_BUILD/fix/env_lua.sh"
   cp -r "$SOURCE_RELEASE/rcm_env" ./build/
   cp "$SOURCE_RELEASE/install.sh" "$SOURCE_RELEASE/root-ctrl-mapper" ./build/
   if [[ $2 == "tar" ]]; then

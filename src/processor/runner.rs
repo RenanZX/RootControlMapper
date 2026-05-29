@@ -41,16 +41,21 @@ fn get_py_exec() -> PathBuf {
     py_exec
 }
 
-fn get_lua_exec() -> PathBuf {
+fn get_lua_exec(type_exec: &str) -> PathBuf {
     let mut local_path = env::current_exe().expect("Falha ao obter caminho do executável");
     local_path.pop();
+    let exec = if type_exec == "installer" {
+        "pkg_lua"
+    } else {
+        "run_lua"
+    };
 
     let lua_exec = if cfg!(debug_assertions) {
         local_path.pop();
         local_path.pop();
-        local_path.join("environment/debug/rcm_lua/run_lua.sh")
+        local_path.join(format!("environment/debug/rcm_lua/{exec}.sh"))
     } else {
-        local_path.join("rcm_lua/run_lua.sh")
+        local_path.join(format!("rcm_lua/{exec}.sh"))
     };
     lua_exec
 }
@@ -116,6 +121,39 @@ pub fn run_py(py_raw: &str) {
     }
 }
 
+pub fn install_package_lua(lua_package_raw: &String) {
+    let (lua_pkg, args) = get_params(lua_package_raw);
+    println!("{}", format!("Installing lib Lua {}", lua_pkg));
+
+    let lua_installer = get_lua_exec("installer");
+    let mut child = Command::new(lua_installer)
+        .arg(lua_pkg)
+        .args(&args)
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .expect("Falha ao executar o comando");
+
+    let mut stdout = child.stdout.take().expect("Falha ao abrir stdout");
+    let mut stderr = child.stderr.take().expect("Falha ao abrir stderr");
+
+    let status = child.wait().expect("Falha ao aguardar processo");
+
+    if status.success() {
+        let mut saida = String::new();
+        stdout.read_to_string(&mut saida).ok();
+        println!("{} {}", "Saida:".to_string().green().bold(), saida);
+    } else {
+        let mut err = String::new();
+        stderr.read_to_string(&mut err).ok();
+        println!(
+            "{} {}",
+            "Erro:".to_string().red().bold(),
+            err.to_string().red()
+        );
+    }
+}
+
 pub fn run_lua(lua_raw: &String) {
     let (lua_file, args) = get_params(lua_raw);
     let script: PathBuf = if has_path(lua_file) {
@@ -123,7 +161,7 @@ pub fn run_lua(lua_raw: &String) {
     } else {
         get_local_script(lua_file)
     };
-    let lua_exec = get_lua_exec();
+    let lua_exec = get_lua_exec("exec");
 
     println!("{}", format!("Run script Lua {}", script.display()).blue());
 

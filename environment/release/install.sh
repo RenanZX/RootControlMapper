@@ -60,6 +60,7 @@ else
   # Executable permissions
   chmod +x root-ctrl-mapper
   chmod +x "$GEN_PYENV"
+  chmod +x root-cmap/rcm_lua/*.sh
   chmod +x root-cmap/root_ctrl_mapper
 
   if [ -d "$INSTALL_PATH/root-cmap" ]; then
