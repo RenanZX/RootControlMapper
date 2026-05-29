@@ -5,6 +5,7 @@ target/
 edit-img/
 environment/debug/
 TODO.md
+*.vim
 
 # Logs de erro gerados pelo Cargo
 Cargo.lock.gocryptfs
